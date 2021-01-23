@@ -4767,7 +4767,22 @@ class Perl6::Parser::Factory {
 	method _param_var( Mu $p ) returns Perl6::Element-List {
 		my $child = Perl6::Element-List.new;
 		given $p {
+
+			when self.assert-hash( $_, [< name sigil twigil declname >] ) {
+				$child.append(
+					self.__Variable(
+						$_, $_.hash.<name>
+					)
+				);
+			}
 			when self.assert-hash( $_, [< name sigil twigil >] ) {
+				$child.append(
+					self.__Variable(
+						$_, $_.hash.<name>
+					)
+				);
+			}
+			when self.assert-hash( $_, [< sigil name declname >] ) {
 				$child.append(
 					self.__Variable(
 						$_, $_.hash.<name>
@@ -4789,6 +4804,13 @@ class Perl6::Parser::Factory {
 							$_.hash.<signature>
 						)
 					)
+				);
+			}
+			when self.assert-hash( $_, [< sigil declname >] ) {
+				#$child.append( self._sigil( $_.hash.<sigil> ) );
+				# PURE-PERL nonterminal
+				$child.append(
+					self.parse( $_.hash.<sigil>, '_sigil' )
 				);
 			}
 			when self.assert-hash( $_, [< sigil >] ) {
@@ -7371,6 +7393,12 @@ class Perl6::Parser::Factory {
 					self.___Variable_Name( $_, $name )
 				);
 			}
+      when self.assert-hash( $_,
+					[< name sigil twigil declname >] ) {
+				$child.append(
+					self.___Variable_Name( $_, $name )
+				);
+			}
 			when self.assert-hash( $_,
 					[< desigilname sigil >] ) {
 				$child.append(
@@ -7386,6 +7414,12 @@ class Perl6::Parser::Factory {
 					self._postcircumfix(
 						$_.hash.<postcircumfix>
 					)
+				);
+			}
+			when self.assert-hash( $_,
+					[< name declname sigil >] ) {
+				$child.append(
+					self.___Variable_Name( $_, $name )
 				);
 			}
 			when self.assert-hash( $_, [< name sigil >] ) {
