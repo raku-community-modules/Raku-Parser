@@ -1,5 +1,7 @@
 #!/usr/bin/env perl6
 
+use Test;
+
 if !@*ARGS {
     say "Usage: $*PROGRAM-NAME go";
     exit;
