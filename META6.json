@@ -15,9 +15,9 @@
     "Perl6::Parser::Factory" : "lib/Perl6/Parser/Factory.pm6"
   },
   "resources" : [ ],
-  "source-url" : "https://github.com/raku/community-modukes/Raku-Parser.git",
+  "source-url" : "https://github.com/raku-community-modules/Raku-Parser.git",
   "support" : {
-    "source" : "https://github.com/raku/community-modukes/Raku-Parser"
+    "source" : "https://github.com/raku-community-modules/Raku-Parser"
   },
   "tags" : [
     "parse",
